@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -42,13 +43,16 @@ public class MyGdxGame extends Game {
 
         maxX = 3;
         maxY = 3;
+        Map map = new Map(maxX,maxY);
         for (int y = 0; y < maxY; y++) {
             for (int x = 0; x < maxX; x++) {
-                group.addActor(new Hex(x, y, Hex.HexType.DEFAULT));
+                group.addActor(new Hex(map.getOfHexPosition(x,y), Hex.HexType.DEFAULT));
             }
         }
+        BuildingTile buildingTile = new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.BOTTOM));
 
         stage.addActor(group);
+        stage.addActor(buildingTile);
     }
 
 
