@@ -28,8 +28,8 @@ public class GestInputsInGame implements GestureDetector.GestureListener {
         if (actor != null) {
             System.out.println("name: " + actor.getName());
             System.out.println("hex position <x: " + actor.getX() + " y: " + actor.getY() + ">");
-            ((OrthographicCamera) stage.getCamera()).position.x = actor.getX() + Hex.WIDTH / 2;
-            ((OrthographicCamera) stage.getCamera()).position.y = actor.getY() + Hex.WIDTH / 2;
+            ((OrthographicCamera) stage.getCamera()).position.x = actor.getX() + actor.getHeight() / 2;
+            ((OrthographicCamera) stage.getCamera()).position.y = actor.getY() + actor.getWidth() / 2;
 
         }
 
