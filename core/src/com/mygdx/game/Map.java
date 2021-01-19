@@ -22,6 +22,7 @@ public class Map {
         int y = positionOfHexOffsetGridData.getY();
         switch (buildingPosition) {
             case BOTTOM:
+                x++;
                 break;
             case LEFT_TOP:
                 y++;

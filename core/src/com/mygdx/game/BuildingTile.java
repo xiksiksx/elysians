@@ -14,7 +14,7 @@ public class BuildingTile extends Actor {
     public BuildingTile (PositionOfBuildingOffsetGridData positionOfBuildingOffsetGridData){
         setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
         setName(positionOfBuildingOffsetGridData.toString());
-        setTouchable(Touchable.enabled);
+        setTouchable(Touchable.disabled);
 
         int param = 0;
         if(positionOfBuildingOffsetGridData.getY()%2==0)

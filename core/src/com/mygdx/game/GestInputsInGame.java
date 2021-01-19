@@ -25,15 +25,14 @@ public class GestInputsInGame implements GestureDetector.GestureListener {
     public boolean tap(float x, float y, int count, int button) {
         Vector2 vector2 = stage.screenToStageCoordinates(new Vector2((float) x, (float) y));
         Actor actor = stage.hit(vector2.x, vector2.y, false);
-        if (actor != null) {
-            System.out.println("name: " + actor.getName());
-            System.out.println("hex position <x: " + actor.getX() + " y: " + actor.getY() + ">");
+        stage.unfocusAll();
+        if (actor instanceof Hex) {
             ((OrthographicCamera) stage.getCamera()).position.x = actor.getX() + actor.getHeight() / 2;
             ((OrthographicCamera) stage.getCamera()).position.y = actor.getY() + actor.getWidth() / 2;
+            actor.toFront();
+            stage.setKeyboardFocus(actor);
 
         }
-
-        System.out.println("tap position <x: " + x + " y: " + y + ">");
 
         return true;
     }
@@ -65,9 +64,8 @@ public class GestInputsInGame implements GestureDetector.GestureListener {
     @Override
     public boolean zoom(float initialDistance, float distance) {
         float zoom = ((OrthographicCamera) stage.getCamera()).zoom;
-        System.out.println("Zoom: " + zoom);
 
-        if (initialDistance >= distance && zoom < 2) {
+        if (initialDistance >= distance && zoom < 1.5) {
             ((OrthographicCamera) stage.getCamera()).zoom += 0.02;
         }
         if (initialDistance <= distance && zoom > 0.25) {

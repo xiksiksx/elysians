@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -19,7 +18,8 @@ public class MyGdxGame extends Game {
 
 
     Stage stage;
-    Group group;
+    Group groupOfHex;
+    Group groupOfBuildings;
 
     OrthographicCamera orthographicCamera;
 
@@ -33,7 +33,8 @@ public class MyGdxGame extends Game {
         batch = new SpriteBatch();
 
         stage = new Stage(new ScreenViewport());
-        group = new Group();
+        groupOfHex = new Group();
+        groupOfBuildings = new Group();
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
@@ -46,13 +47,17 @@ public class MyGdxGame extends Game {
         Map map = new Map(maxX,maxY);
         for (int y = 0; y < maxY; y++) {
             for (int x = 0; x < maxX; x++) {
-                group.addActor(new Hex(map.getOfHexPosition(x,y), Hex.HexType.DEFAULT));
+                groupOfHex.addActor(new Hex(map.getOfHexPosition(x,y), Hex.HexType.INNER));
             }
         }
-        BuildingTile buildingTile = new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.BOTTOM));
 
-        stage.addActor(group);
-        stage.addActor(buildingTile);
+        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.BOTTOM)));
+        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.LEFT_TOP)));
+        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.RIGHT_TOP)));
+
+        stage.addActor(groupOfBuildings);
+        stage.addActor(groupOfHex);
+        groupOfBuildings.toFront();
     }
 
 
