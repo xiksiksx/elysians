@@ -20,9 +20,10 @@ public class GestInputsInGame implements GestureDetector.GestureListener {
     public boolean touchDown(float x, float y, int pointer, int button) {
         return false;
     }
-
+int i=0;
     @Override
     public boolean tap(float x, float y, int count, int button) {
+
         Vector2 vector2 = stage.screenToStageCoordinates(new Vector2((float) x, (float) y));
         Actor actor = stage.hit(vector2.x, vector2.y, false);
         stage.unfocusAll();
@@ -31,6 +32,11 @@ public class GestInputsInGame implements GestureDetector.GestureListener {
             ((OrthographicCamera) stage.getCamera()).position.y = actor.getY() + actor.getWidth() / 2;
             actor.toFront();
             stage.setKeyboardFocus(actor);
+            if(i>2){
+                MyGdxGame.map.addBuilding((((Hex)actor).getPositionOfHexOffsetGridData()),BuildingPosition.BOTTOM);
+                i=0;
+            }
+            i++;
 
         }
 

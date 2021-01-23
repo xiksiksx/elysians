@@ -1,8 +1,8 @@
 package com.mygdx.game;
 
-public class PositionOfBuildingOffsetGridData {
+public class HexOffsetGrid {
     private int x,y;
-    public PositionOfBuildingOffsetGridData(int x, int y){
+    public HexOffsetGrid(int x, int y){
         this.x = x;
         this.y = y;
     }
@@ -17,7 +17,7 @@ public class PositionOfBuildingOffsetGridData {
 
     @Override
     public String toString() {
-        return "PositionOfBuildingOffsetGridData{" +
+        return "HexOffsetGridData{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

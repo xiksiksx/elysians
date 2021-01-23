@@ -11,21 +11,19 @@ public class BuildingTile extends Actor {
     private Sprite sprite = new Sprite(new Texture(Gdx.files.internal("circle.png")));
     private final int r = 25; //radius od circle building
 
-    public BuildingTile (PositionOfBuildingOffsetGridData positionOfBuildingOffsetGridData){
+    public BuildingTile (BuildingOffsetGrid buildingOffsetGrid){
         setBounds(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
-        setName(positionOfBuildingOffsetGridData.toString());
+        setName(buildingOffsetGrid.toString());
         setTouchable(Touchable.disabled);
 
-        int param = 0;
-        if(positionOfBuildingOffsetGridData.getY()%2==0)
-            param = PositionOfHexOffsetGridData.SIDE/2;
 
-        setPosition(positionOfBuildingOffsetGridData.getX()*PositionOfHexOffsetGridData.SIDE+param-r,
-                positionOfBuildingOffsetGridData.getY()*PositionOfHexOffsetGridData.DELTA-r);
+        setPosition(Utils.caluclateBuildingXPosition(buildingOffsetGrid)-r,
+                Utils.calculateBuildingYPosition(buildingOffsetGrid)-r);
+
         sprite.setPosition(getX(), getY());
         super.positionChanged();
         setVisible(true);
-        setName(positionOfBuildingOffsetGridData.toString());
+        setName(buildingOffsetGrid.toString());
 
 
     }

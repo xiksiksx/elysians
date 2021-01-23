@@ -4,32 +4,28 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class Hex extends Actor {
-    private final int DELTA = 152;
 
     private Sprite sprite;
+    private HexOffsetGrid positionOfHexOffsetGridData;
 
-    public Hex(PositionOfHexOffsetGridData positionOfHexOffsetGridData, HexType hexType) {
+    public Hex(HexOffsetGrid positionOfHexOffsetGridData, HexType hexType) {
+        this.positionOfHexOffsetGridData = positionOfHexOffsetGridData;
         sprite = new Sprite(new Texture(hexType.getPathToImg()));
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
-        float param = 0;
-        if (positionOfHexOffsetGridData.getY() % 2 != 0)
-            param = sprite.getHeight() / 2;
         setTouchable(Touchable.enabled);
-        setPosition(PositionOfHexOffsetGridData.SIDE * positionOfHexOffsetGridData.getX() + param,
-                PositionOfHexOffsetGridData.DELTA * positionOfHexOffsetGridData.getY());
+        setPosition(Utils.calculateHexXPosition(positionOfHexOffsetGridData),
+                Utils.calculateHexYPosition(positionOfHexOffsetGridData));
         sprite.setPosition(getX(), getY());
         super.positionChanged();
         setVisible(true);
         setName(positionOfHexOffsetGridData.toString());
 
     }
-
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -46,6 +42,9 @@ public class Hex extends Actor {
         }
     }
 
+    public HexOffsetGrid getPositionOfHexOffsetGridData() {
+        return positionOfHexOffsetGridData;
+    }
 
     enum HexType {
         DEFAULT("hex.png"),

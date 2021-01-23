@@ -20,6 +20,7 @@ public class MyGdxGame extends Game {
     Stage stage;
     Group groupOfHex;
     Group groupOfBuildings;
+    public static Map map;
 
     OrthographicCamera orthographicCamera;
 
@@ -33,8 +34,6 @@ public class MyGdxGame extends Game {
         batch = new SpriteBatch();
 
         stage = new Stage(new ScreenViewport());
-        groupOfHex = new Group();
-        groupOfBuildings = new Group();
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
@@ -42,22 +41,15 @@ public class MyGdxGame extends Game {
         Gdx.input.setInputProcessor(inputMultiplexer);
 
 
-        maxX = 3;
-        maxY = 3;
-        Map map = new Map(maxX,maxY);
-        for (int y = 0; y < maxY; y++) {
-            for (int x = 0; x < maxX; x++) {
-                groupOfHex.addActor(new Hex(map.getOfHexPosition(x,y), Hex.HexType.INNER));
-            }
-        }
-
-        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.BOTTOM)));
-        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.LEFT_TOP)));
-        groupOfBuildings.addActor(new BuildingTile(map.getOfBuildingPosition(new PositionOfHexOffsetGridData(1,1),BuildingPosition.RIGHT_TOP)));
-
+        maxX = 5;
+        maxY = 5;
+        map = new Map(maxX,maxY);
+        groupOfHex = map.generateBlankMap();
+        groupOfBuildings = map.getAllBuildings();
         stage.addActor(groupOfBuildings);
         stage.addActor(groupOfHex);
-        groupOfBuildings.toFront();
+
+
     }
 
 
@@ -67,7 +59,6 @@ public class MyGdxGame extends Game {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
 
     }
 
